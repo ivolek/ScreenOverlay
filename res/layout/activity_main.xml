@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    >
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="29dp"
+                    android:layout_height="65dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/button"/>
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="29dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/button1"
+                    android:background="@drawable/button" />
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="29dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/button3"
+                    android:background="@drawable/button" />
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="28.5dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/button4"
+                    android:background="@drawable/button" />
+
+                <Button
+                    android:id="@+id/button6"
+                    android:layout_width="28dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/button5"
+                    android:background="@drawable/button" />
+
+                <Button
+                    android:id="@+id/button7"
+                    android:layout_width="28dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/button6"
+                    android:background="@drawable/button" />
+
+                <Button
+                    android:id="@+id/button8"
+                    android:layout_width="29dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/button7"
+                    android:background="@drawable/button" />
+
+                <Button
+                    android:id="@+id/button9"
+                    android:layout_width="29dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/button8"
+                    android:background="@drawable/button" />
+
+                <Button
+                    android:id="@+id/button10"
+                    android:layout_width="29dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/button9"
+                    android:background="@drawable/button" />
+
+                <Button
+                    android:id="@+id/button11"
+                    android:layout_width="29dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/button10"
+                    android:background="@drawable/button" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="29dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/button2"
+                    android:background="@drawable/button" />
+
+</RelativeLayout>
