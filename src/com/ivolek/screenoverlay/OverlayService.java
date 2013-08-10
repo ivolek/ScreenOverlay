@@ -19,14 +19,11 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 
-/**
- * Service to overlay a translucent red View
- * @author Hathy
- */
 public class OverlayService extends Service {
 
 	LinearLayout oView;
 	boolean notificationOn = false;
+	boolean viewOn = false;
 
 	@Override
 	public IBinder onBind(Intent i) {
@@ -40,7 +37,7 @@ public class OverlayService extends Service {
 					getContentResolver(), android.provider.Settings.System.SCREEN_BRIGHTNESS);
 
 			if(curBrightnessValue == 20){
-				setScreenFilter(0x00000000);
+				setScreenFilter(0);
 				createNotification();
 			}
 		}
@@ -64,27 +61,30 @@ public class OverlayService extends Service {
 			wm.removeView(oView);}
 			catch(Exception e){}
 			
-			notificationOn = false;
+			viewOn = false;
 		}
 		else{
-			if(!notificationOn)
-				oView = new LinearLayout(this);   
-
-			oView.setBackgroundColor(color); // The translucent red color
+			
 			WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-					WindowManager.LayoutParams.FLAG_FULLSCREEN,
-					WindowManager.LayoutParams.FLAG_FULLSCREEN,
-					WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
-					WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
-					PixelFormat.TRANSLUCENT);       
-			WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-
-			if(!notificationOn)
+				WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
+				WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+				PixelFormat.TRANSLUCENT);       
+		 WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+		 
+			if(!viewOn){
+				oView = new LinearLayout(this);   
+				oView.setBackgroundColor(color);
 				wm.addView(oView, params);
-			else
+				viewOn = true;
+			}
+			else{
+				oView.setBackgroundColor(color);
 				wm.updateViewLayout(oView, params);
+			}
 
-			notificationOn = true;
+
 		}
 	}
 
@@ -160,32 +160,35 @@ public class OverlayService extends Service {
 		registerReceiver(switchButtonListener, new IntentFilter("button10_pressed"));
 		registerReceiver(switchButtonListener, new IntentFilter("button11_pressed"));
 		notificationManager.notify(1, notification);        
+		
+		notificationOn = true;
 	}
+	
 	public class switchButtonListener extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			int color = 0;
 			if(intent.getAction() == "button1_pressed"){}
 			if(intent.getAction() == "button2_pressed")
-				color = 0x1a000000;
+				color = 0x14000000;
 			if(intent.getAction() == "button3_pressed")
-				color = 0x34000000;
+				color = 0x29000000;
 			if(intent.getAction() == "button4_pressed")
-				color = 0x4e000000;
+				color = 0x3e000000;
 			if(intent.getAction() == "button5_pressed")
-				color = 0x68000000;
+				color = 0x53000000;
 			if(intent.getAction() == "button6_pressed")
-				color = 0x82000000;
+				color = 0x68000000;
 			if(intent.getAction() == "button7_pressed")
-				color = 0x9c000000;
+				color = 0x7d000000;
 			if(intent.getAction() == "button8_pressed")
-				color = 0xb6000000;
+				color = 0x92000000;
 			if(intent.getAction() == "button9_pressed")
-				color = 0xd0000000;
+				color = 0xa7000000;
 			if(intent.getAction() == "button10_pressed")
-				color = 0xea000000;
+				color = 0xbc000000;
 			if(intent.getAction() == "button11_pressed")
-				color = 0xf4000000; 
+				color = 0xd1000000; 
 			setScreenFilter(color);		
 		}
 
@@ -204,6 +207,7 @@ public class OverlayService extends Service {
 		if(oView!=null){
 			WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
 			wm.removeView(oView);
+			viewOn = false;
 		}
 	}
 
@@ -231,9 +235,12 @@ public class OverlayService extends Service {
 					createNotification();
 				}
 				else if (curBrightnessValue != 20 && notificationOn){
-					WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-					wm.removeView(oView); 
+					try{
+						WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+						wm.removeView(oView);}
+						catch(Exception e){}
 					notificationOn = false;
+					viewOn = false;
 					NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 					notificationManager.cancelAll();
 				}			
